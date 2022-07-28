@@ -1,0 +1,30 @@
+version: '3'
+services:
+  backend:
+    build: ./backend
+    container_name: mobile_backend
+    environment:
+      - DB_NAME=dev-base
+      - DB_USER=alecoq
+      - DB_PASS=123456789
+    volumes:
+      - ./backend:/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+      - redis
+  redis:
+    image: redis:alpine
+  db:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_DB=dev-base
+      - POSTGRES_USER=alecoq
+      - POSTGRES_PASSWORD=123456789
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+volumes:
+  postgres_data:
