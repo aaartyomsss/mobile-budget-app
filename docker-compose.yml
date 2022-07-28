@@ -16,6 +16,10 @@ services:
       - redis
   redis:
     image: redis:alpine
+    volumes:
+      - redis_data:/var/lib/redis/data
+    ports:
+      - '6379:6379'
   db:
     image: postgres:13-alpine
     environment:
@@ -28,3 +32,4 @@ services:
       - postgres_data:/var/lib/postgresql/data/
 volumes:
   postgres_data:
+  redis_data:
